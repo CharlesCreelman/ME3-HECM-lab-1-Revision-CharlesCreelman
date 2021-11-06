@@ -37,6 +37,5 @@ void main(void) {
                 if (!PORTFbits.RF2) {LATDbits.LATD7 = !LATDbits.LATD7,LATHbits.LATH3 = !LATHbits.LATH3,i=0;} //toggle LEDS, one should go off whilst the other turns on
             }// doing it this way makes the click reliable and instant
         }
-        //__delay_ms(200); // call built in delay function 
     }
 }
