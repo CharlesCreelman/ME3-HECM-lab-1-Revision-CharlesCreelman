@@ -28,13 +28,15 @@ void main(void) {
     
     // setup pin for input (connected to button)
     TRISFbits.TRISF2=1; //set TRIS value for pin (input)
-    ANSELFbits.ANSELF2=0; //turn off analogue input on pin  
+    ANSELFbits.ANSELF2=0; //turn off analogue input on pin 
+    TRISFbits.TRISF3=1; //set TRIS value for pin (input)
+    ANSELFbits.ANSELF3=0; //turn off analogue input on pin 
     int i = 0;
     while (1) { //infinite while loop - repeat forever
-        while (PORTFbits.RF2){ //empty while loop (wait for button press)
+        while (PORTFbits.RF2&&PORTFbits.RF3){ //empty while loop (wait for button press)
             i = 1; // resets the i int to 1 after it got set to 0 below in the if statement
             while (i){ //this loop waits for the button to be released before restarting the check button pressed loop
-                if (!PORTFbits.RF2) {LATDbits.LATD7 = !LATDbits.LATD7,LATHbits.LATH3 = !LATHbits.LATH3,i=0;} //toggle LEDS, one should go off whilst the other turns on
+                if (!PORTFbits.RF2&&!PORTFbits.RF3) {LATDbits.LATD7 = !LATDbits.LATD7,LATHbits.LATH3 = !LATHbits.LATH3,i=0;} //toggle LEDS, one should go off whilst the other turns on
             }// doing it this way makes the click reliable and instant
         }
     }
