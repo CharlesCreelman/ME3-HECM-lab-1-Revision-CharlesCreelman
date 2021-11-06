@@ -34,6 +34,6 @@ void main(void) {
         
         if (!PORTFbits.RF2) LATDbits.LATD7 = !LATDbits.LATD7; //toggle LED
 
-        __delay_ms(100); // call built in delay function 
+        __delay_ms(200); // call built in delay function 
     }
 }
