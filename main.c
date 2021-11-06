@@ -21,19 +21,22 @@
 ************************************/
 void main(void) {    
     // setup pin for output (connected to LED)
-    LATDbits.LATD7=0;   //set initial output state
+    LATDbits.LATD7=0;   //set initial output state for left LED
     TRISDbits.TRISD7=0; //set TRIS value for pin (output)
+    LATHbits.LATH3=1;   //set initial output state for right LED
+    TRISHbits.TRISH3=0; //set TRIS value for pin (output)
     
     // setup pin for input (connected to button)
     TRISFbits.TRISF2=1; //set TRIS value for pin (input)
     ANSELFbits.ANSELF2=0; //turn off analogue input on pin  
-    
+    int i = 0;
     while (1) { //infinite while loop - repeat forever
-        
-        while (PORTFbits.RF2); //empty while loop (wait for button press)
-        
-        if (!PORTFbits.RF2) LATDbits.LATD7 = !LATDbits.LATD7; //toggle LED
-
-        __delay_ms(200); // call built in delay function 
+        while (PORTFbits.RF2){ //empty while loop (wait for button press)
+            i = 1; // resets the i int to 1 after it got set to 0 below in the if statement
+            while (i){ //this loop waits for the button to be released before restarting the check button pressed loop
+                if (!PORTFbits.RF2) {LATDbits.LATD7 = !LATDbits.LATD7,LATHbits.LATH3 = !LATHbits.LATH3,i=0;} //toggle LEDS, one should go off whilst the other turns on
+            }// doing it this way makes the click reliable and instant
+        }
+        //__delay_ms(200); // call built in delay function 
     }
 }
